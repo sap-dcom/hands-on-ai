@@ -183,7 +183,7 @@ npm -v
 ### 3.2 Installation on Windows
 
 #### Step 3.2.1: Download Node from the https://nodejs.org/en/download and run the installable
-![Alt text](images/images1704.png) 
+![Alt text](images/image1704.png) 
 
 #### Step 3.2.2: Verify installed node version
 Open Command Prompt and check if node is installed correctly:
@@ -232,191 +232,76 @@ Search for Visual Studio Code and click on 'Install'.
 ### Step 5.2: API Configuration with AI Core Credentials
 
 Add the following AI Core credentials to your API configuration:
-![Alt text](images/images22.png)
 
 ```json
 {
-    "clientid": "sb-aafadf2b-3149-4e28-a4c0-547e234be013!b18435|xsuaa_std!b318061",
-    "clientsecret": "c9a6cdaf-d864-4f29-8712-fdcffad0cb93$35U2umQGTiCng433P674JVlL-vteXy0gWMz6ZhBRHyw=",
-    "AI Core Auth URL": "https://ich-dev-eu12.authentication.eu12.hana.ondemand.com",
-    "model": "gpt-4o",
-    "credential-type": "binding-secret",
-    "serviceurls": {
-        "AI Core Base URL": "https://api.ai.intprod-eu12.eu-central-1.aws.ml.hana.ondemand.com"
-    }
+  "serviceurls": {
+    "AI_API_URL": "https://api.ai.intprod-eu12.eu-central-1.aws.ml.hana.ondemand.com"
+  },
+  "appname": "cd8a148b-834e-42f4-9c76-0e041cb46d6c!b1491476|xsuaa_std!b318061",
+  "clientid": "sb-cd8a148b-834e-42f4-9c76-0e041cb46d6c!b1491476|xsuaa_std!b318061",
+  "clientsecret": "382e73ee-1174-488c-a42f-54ebcf513b92$NotbsTVZFt8aFXJ9TnyqkoUUc58gTVe-c1cWdlB_wD0=",
+  "identityzone": "s7f84y7m48-l9lgs",
+  "identityzoneid": "6243d577-b0e2-4fc4-88a1-3a12fcd0f291",
+  "url": "https://s7f84y7m48-l9lgs.authentication.eu12.hana.ondemand.com",
+  "credential-type": "binding-secret"
 }
 ```
-
----
-
-## 5. Clone or Download the Application
-
-To get started with the MCP server application, clone or download the repository from the following link:
-
-- Application Repository: [custom_mcp_development](https://github.tools.sap/d-comIN2026/custom_mcp_development.git)
-![Alt text](images/images12.png)
-
----
-
-## Project Structure Information
-- **pom.xml**: Where we are using AI-related libraries. Please add the below xml code snippet inside POM file, under the dependencies section 
-- **pom.xml**: The above code is required to bring the required libraries for Spring AI enablement
-- **pom.xml**: Add this code snippet at line number 50
-```xml
-	<dependency>
-            <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-starter-mcp-server-webmvc</artifactId>
-            <version>1.1.0</version>
-        </dependency>
-
-	<dependency>
-            <groupId>org.apache.maven.resolver</groupId>
-            <artifactId>maven-resolver-api</artifactId>
-            <version>1.9.18</version>
-        </dependency>
- 
-        <dependency>
-            <groupId>org.apache.maven.resolver</groupId>
-            <artifactId>maven-resolver-impl</artifactId>
-            <version>1.9.18</version>
-        </dependency>
- 
-        <dependency>
-            <groupId>org.apache.maven.resolver</groupId>
-            <artifactId>maven-resolver-connector-basic</artifactId>
-            <version>1.9.18</version>
-        </dependency>
- 
-        <dependency>
-            <groupId>org.apache.maven.resolver</groupId>
-            <artifactId>maven-resolver-transport-http</artifactId>
-            <version>1.9.18</version>
-        </dependency>
- 
-        <dependency>
-            <groupId>org.apache.maven</groupId>
-            <artifactId>maven-resolver-provider</artifactId>
-            <version>3.9.6</version>
-        </dependency>
-
-```
-
-- **application.yaml**: We have exposed the MCP server.
-- **Copy and paste the below code under the application.yaml file at line number 2
-```yaml
-spring:
-  ai:
-    mcp:
-      server:
-        protocol: STREAMABLE
-        name: ich_mcp_server
-        version: 1.0.0
-        type: SYNC
-        instructions: "This streamable server provides real-time notifications"
-        resource-change-notification: true
-        tool-change-notification: true
-        prompt-change-notification: true
-        streamable-http:
-          mcp-endpoint: /api/mcp
-          keep-alive-interval: 30s
-```
-- **ShoppingCartService.java**: Used for connecting with external services via @tool annotation.
-- **ShoppingCartService**: Basicallly the shopping cart provides 3 functionalities, like AddItem, RemoveItem and GetListItems.
-- **ShoppingCartService**: AddItem adds items to shopping cart and correspondingly the remove and getlist functionalities removes an iteam and get the list of items accordingly 
-- **ShoppingCartService**: External Shopping cart integration with MCP server, please copy the below code and paste under ShoppinCartService.java File
-- **ShoppingCartService**: Copy and paste this code at line number 14 in the file ShoppingCartService.java
-```java
-@Autowired ShoppingCartServiceImpl shoppingCartServiceImpl;
-
-    @Tool(name = "addItem",
-        description = "Add an item to the shopping list or update its quantity. Specify item name and quantity.")
-    public String addItem(String name, int quantity) {
-        return shoppingCartServiceImpl.addItem(name, quantity);
-    }
-    
-    @Tool(name = "getItems",
-        description = "Get all items currently in the shopping list. Returns a list of items with their names and quantities.")
-    public List<ShoppingItem> getItems() {
-        return shoppingCartServiceImpl.getItems();
-    }
-
-    @Tool(name = "removeItem",
-        description = "Remove a specified quantity of an item from the shopping list. Specify item name and quantity to remove. If quantity is not specified or is greater than item quantity, the item is removed.")
-    public String removeItem(String name, int quantity) {
-        return shoppingCartServiceImpl.removeItem(name, quantity);
-    }
-```
-- **DkomApplication.java**: For exposing these tools.
-```java
-@Bean
-public ToolCallbackProvider shoppingCartToolCallbacks(ShoppingCartService shoppingCartService) {
-	return MethodToolCallbackProvider.builder().toolObjects(shoppingCartService).build();
-}
-```
-
----
 
 ## 6. Next Steps
 
-Once the application has been downloaded, open the application in Visual Studio Code and follow these next steps:
-![Alt text](images/images13.png)
-
-### Step 6.1: Build the Application
-
-Open a new terminal in Visual Studio Code and run the following command:
-
-```bash
-mvn clean install
-```
-![Alt text](images/images14.png)
-
-### Step 6.2: Run the Application
-
-Run the following command:
-
-```bash
-mvn spring-boot:run
-```
-![Alt text](images/images15.png)
-
-### Step 6.3: Verify Application Response
-
-Once the application is running, open a browser and check if the following URL returns a response: [http://localhost:8080/hello](http://localhost:8080/hello)
-![Alt text](images/images16.png)
-
-### Step 6.4: Configure MCP Servers in Cline Extension
+### Step 6.1: Configure MCP Servers in Cline Extension
 
 Open the Cline extension in Visual Studio Code and configure MCP as follows:
 
 1. Click on "Configure MCP Servers".
 ![Alt text](images/images23.png)
    
-2. Add the following configuration in "mcpServers":
+2. Add the following configuration in "cline_mcp_settings.json":
 
 ```json
-"ich_mcp_server_local": {
-  "autoApprove": ["addItem","getItems","removeItem"],
-  "disabled": false,
-  "timeout": 60,
-  "type": "streamableHttp",
-  "url": "http://localhost:8080/api/mcp"
+{
+    "mcpServers": {
+        "@ui5/mcp-server": {
+            "type": "stdio",
+            "command": "npx",
+            "args": [
+                "-y",
+                "@ui5/mcp-server"
+            ]
+        },
+		"fiori-mcp": {
+      		"type": "stdio",
+      		"timeout": 60,
+      		"command": "npx",
+      		"args": ["--yes","@sap-ux/fiori-mcp-server@latest", "fiori-mcp"]
+    	},
+		"cds-mcp": {
+      		"type": "local",
+      		"command": ["npx", "-y", "@cap-js/mcp-server"],
+      		"enabled": true
+    	}
+    }
 }
 ```
-![Alt text](images/images17.png)
 
 3. Save the file and start the MCP server, then click on Done.
 
 ### Step 6.5: Perform Operations in Cline
+```
+Create a complete SAP CAP Java application with Fiori UI for managing Purchase Orders.
 
-While the MCP server is running, perform the following instructions in Cline:
+Requirements:
+Backend (CAP Java):
+- Entity: PurchaseOrder (ID, orderNumber, vendor, amount, currency, status, createdAt)
+- Entity: OrderItem (ID, purchaseOrder, product, quantity, unitPrice)
+- OData V4 service exposing both entities with CRUD
 
-- Add one pack of milk
-- Add 4 chocolates
-- Get items in the shopping cart
-- Remove 1 chocolate
-- Get items in the shopping cart
-
-**Congratulations! You've created your own MCP server.**
+Frontend (SAP Fiori Elements):
+- List Report showing all Purchase Orders
+- Object Page with Order details and line items table
+- Create/Edit forms for both entities
+```
 
 ### How to Use MCP Server in Real World
 
@@ -424,24 +309,20 @@ This is a real-life example of how we are using the MCP server with Cline in day
 
 ## Verification Checklist
 
-Before proceeding with MCP server creation, verify all installations:
+Before proceeding, verify all installations:
 
 - [ ] Homebrew installed and working (`brew -v`)
 - [ ] Java installed (`java -version`)
 - [ ] JAVA_HOME environment variable set
 - [ ] Maven installed (`mvn --version`)
 - [ ] Maven environment variables configured
+- [ ] Node installed
 - [ ] Visual Studio Code installed
 - [ ] Cline extension installed in VS Code
 - [ ] Cline properly configured following the documentation
-- [ ] MCP Server running
 - [ ] Instructions are working in Cline with MCP server
 
 ---
-
-## Next Steps
-
-Once all prerequisites are installed and verified, you can proceed with creating your MCP server following the specific server creation documentation.
 
 ## Troubleshooting
 
