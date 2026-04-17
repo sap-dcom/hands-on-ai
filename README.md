@@ -1,4 +1,4 @@
-# Building Real-World AI Agents with Cline and MCP
+# Building Real-World Applicaitons with Cline, MCP and Skills 
 
 This guide provides step-by-step instructions for setting up the prerequisites needed for MCP (Model Context Protocol) server creation on macOS and Windows.
 
