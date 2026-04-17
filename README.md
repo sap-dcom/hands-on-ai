@@ -6,8 +6,9 @@ This guide provides step-by-step instructions for setting up the prerequisites n
 
 Before creating an MCP server, ensure you have the following tools installed:
 
-- ✅ Java (SAP Machine JDK 25)
-- ✅ Maven (3.9.12)
+- ✅ Java (SAP Machine JDK)
+- ✅ Maven
+- ✅ Node
 - ✅ Visual Studio Code
 - ✅ Cline Extension for VS Code
 
@@ -117,7 +118,7 @@ echo 'export MAVEN_HOME=/usr/local/opt/maven && export PATH=$MAVEN_HOME/bin:$PAT
 #### Step 2.2.1: Download and Install Maven
 
 Download Maven from the official site: [Maven](https://maven.apache.org/download.cgi)
-Download the ZIP file: [Maven ZIP](https://dlcdn.apache.org/maven/maven-3/3.9.12/binaries/apache-maven-3.9.12-bin.zip)
+Download the ZIP file: [Maven ZIP](https://dlcdn.apache.org/maven/maven-3/3.9.14/binaries/apache-maven-3.9.14-bin.zip)
 ![Alt text](images/images2.png)
 
 Create a new folder 'tools' under C:\ drive and move the ZIP file into the newly created folder.
@@ -152,17 +153,63 @@ mvn --version
 ![Alt text](images/images9.png)
 
 ---
-
-## 3. Visual Studio Code Installation
+## 3. Node Installation
 
 ### 3.1 Installation on Mac
+
+#### Step 3.1.1: Node Installation
+```cmd
+
+curl -o- https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
+
+brew install node@24
+
+```
+
+#### Step 3.1.2: Verify installed node version
+```cmd
+
+node -v
+
+```
+
+#### Step 3.1.3: Verify installed npm version
+```cmd
+
+npm -v
+
+```
+
+### 3.2 Installation on Windows
+
+#### Step 3.2.1: Download Node from the https://nodejs.org/en/download and run the installable
+![Alt text](images/images1704.png) 
+
+#### Step 3.2.2: Verify installed node version
+Open Command Prompt and check if node is installed correctly:
+```cmd
+
+node -v
+
+```
+
+#### Step 3.2.3: Verify installed npm version
+```cmd
+
+npm -v
+
+```
+
+## 4. Visual Studio Code Installation
+
+### 4.1 Installation on Mac
 
 Install VS Code from the **self service portal**.
 ![Alt text](images/images20.png)
 
 ---
 
-### 3.2 Installation on Windows
+### 4.2 Installation on Windows
 
 Open Microsoft Store.
 ![Alt text](images/images10.png)
@@ -172,9 +219,9 @@ Search for Visual Studio Code and click on 'Install'.
 
 ---
 
-## 4. Cline Extension Installation
+## 5. Cline Extension Installation
 
-### Step 4.1: Install Cline Extension in VS Code
+### Step 5.1: Install Cline Extension in VS Code
 
 1. Open Visual Studio Code
 2. Go to Extensions marketplace
@@ -182,7 +229,7 @@ Search for Visual Studio Code and click on 'Install'.
 4. Install the Cline extension
 ![Alt text](images/images21.png)
 
-### Step 4.2: API Configuration with AI Core Credentials
+### Step 5.2: API Configuration with AI Core Credentials
 
 Add the following AI Core credentials to your API configuration:
 ![Alt text](images/images22.png)
