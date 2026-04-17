@@ -1,0 +1,12 @@
+{
+  "serviceurls": {
+    "AI_API_URL": "https://api.ai.intprod-eu12.eu-central-1.aws.ml.hana.ondemand.com"
+  },
+  "appname": "cd8a148b-834e-42f4-9c76-0e041cb46d6c!b1491476|xsuaa_std!b318061",
+  "clientid": "sb-cd8a148b-834e-42f4-9c76-0e041cb46d6c!b1491476|xsuaa_std!b318061",
+  "clientsecret": "382e73ee-1174-488c-a42f-54ebcf513b92$NotbsTVZFt8aFXJ9TnyqkoUUc58gTVe-c1cWdlB_wD0=",
+  "identityzone": "s7f84y7m48-l9lgs",
+  "identityzoneid": "6243d577-b0e2-4fc4-88a1-3a12fcd0f291",
+  "url": "https://s7f84y7m48-l9lgs.authentication.eu12.hana.ondemand.com",
+  "credential-type": "binding-secret"
+}
